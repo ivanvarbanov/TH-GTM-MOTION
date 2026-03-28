@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrialHub GTM Motion</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0D0F12;
+    --bg-card: #13161B;
+    --bg-card-hover: #181B22;
+    --border: #1E2128;
+    --border-light: #282D36;
+    --accent: #3EC9A7;
+    --accent-dim: rgba(62,201,167,0.12);
+    --accent-mid: rgba(62,201,167,0.25);
+    --text-primary: #E8EAED;
+    --text-secondary: #8A8F98;
+    --text-tertiary: #5A5F69;
+    --email-color: #378ADD;
+    --phone-color: #3EC9A7;
+    --linkedin-color: #7F77DD;
+    --sms-color: #D85A30;
+    --dm-color: #EF9F27;
+    --red-muted: #E85454;
+    --green-banner-bg: rgba(62,201,167,0.08);
+    --green-banner-border: rgba(62,201,167,0.2);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--bg);
+    color: var(--text-primary);
+  }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page-wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 60px 32px 120px;
+  }
+
+  /* ---- HEADER ---- */
+  .page-header {
+    margin-bottom: 80px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+  .page-header .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .page-header h1 {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+  .page-header .subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    max-width: 640px;
+    line-height: 1.7;
+  }
+
+  /* ---- SECTIONS ---- */
+  .section {
+    margin-bottom: 96px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .section-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .section-desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    max-width: 640px;
+    line-height: 1.7;
+  }
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin-bottom: 96px;
+  }
+
+  /* ---- SUBSECTION ---- */
+  .subsection {
+    margin-bottom: 48px;
+  }
+  .sub-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .sub-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .sub-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    max-width: 600px;
+    line-height: 1.65;
+  }
+
+  /* ---- CARD ---- */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+  }
+  .card-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  /* ---- FUNNEL (Section 1) ---- */
+  .funnel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 32px;
+  }
+  .funnel-step {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px 24px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    transition: background 0.2s;
+  }
+  .funnel-step:hover {
+    background: var(--bg-card-hover);
+  }
+  .funnel-step .funnel-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-right: 20px;
+    min-width: 120px;
+    text-align: right;
+  }
+  .funnel-step .funnel-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .funnel-step .funnel-detail {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+  .funnel-step .funnel-text {
+    text-align: left;
+  }
+  .funnel-connector {
+    width: 1px;
+    height: 16px;
+    background: var(--border-light);
+  }
+  .funnel-step.funnel-highlight {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  /* ---- SLIDERS ---- */
+  .sliders-grid {
+    display: grid;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .sliders-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .sliders-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .ctrl {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ctrl-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .ctrl-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .ctrl-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  .ctrl-range {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+  }
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: var(--border-light);
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    cursor: pointer;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    cursor: pointer;
+  }
+
+  /* ---- METRICS ---- */
+  .metrics-row {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .metrics-row.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .metrics-row.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .metric-tile {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .metric-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+  }
+  .metric-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  .metric-val.highlight {
+    color: var(--accent);
+  }
+  .metric-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 4px;
+  }
+
+  /* ---- CONVERSION BANNER ---- */
+  .conv-banner {
+    background: var(--green-banner-bg);
+    border: 1px solid var(--green-banner-border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 32px;
+    display: grid;
+    grid-template-columns: 1fr 32px 1fr 32px 1fr;
+    gap: 8px;
+    align-items: center;
+  }
+  .conv-item { text-align: center; }
+  .conv-item-label {
+    font-size: 12px;
+    color: var(--accent);
+    opacity: 0.8;
+    margin-bottom: 4px;
+  }
+  .conv-item-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .conv-item-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    opacity: 0.6;
+    margin-top: 4px;
+  }
+  .conv-arrow {
+    text-align: center;
+    font-size: 20px;
+    color: var(--accent);
+    opacity: 0.5;
+  }
+
+  /* ---- CHANNEL BARS ---- */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .ch-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .ch-row:last-child { margin-bottom: 0; }
+  .ch-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .ch-name {
+    font-size: 13px;
+    color: var(--text-secondary);
+    width: 90px;
+    flex-shrink: 0;
+  }
+  .ch-bar-wrap {
+    flex: 1;
+    background: var(--border);
+    border-radius: 3px;
+    height: 7px;
+    overflow: hidden;
+  }
+  .ch-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.25s ease;
+  }
+  .ch-pct {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    width: 32px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .ch-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-align: right;
+    width: 80px;
+    flex-shrink: 0;
+  }
+
+  /* ---- WORKLOAD ROWS ---- */
+  .wl-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .wl-row:last-child { border-bottom: none; }
+  .wl-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .wl-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .wl-label { font-size: 13px; color: var(--text-secondary); }
+  .wl-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  /* ---- SEQUENCE GRID ---- */
+  .seq-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 6px;
+    margin-bottom: 32px;
+    overflow-x: auto;
+  }
+  .seq-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 8px;
+    text-align: center;
+    min-width: 88px;
+  }
+  .seq-day-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-tertiary);
+    margin-bottom: 8px;
+  }
+  .seq-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .seq-channel {
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .seq-action {
+    font-size: 10px;
+    line-height: 1.35;
+    color: var(--text-secondary);
+  }
+
+  /* ---- COHORT TIMELINE ---- */
+  .timeline-header {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .timeline-cols {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+  }
+  .timeline-col-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    padding-left: 4px;
+  }
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .timeline-row-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-align: right;
+  }
+  .timeline-cells {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+    height: 40px;
+  }
+  .timeline-cell {
+    border-radius: 4px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .timeline-cell.active {
+    border-color: transparent;
+  }
+  .timeline-cell-top {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .timeline-cell-bot {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    opacity: 0.7;
+  }
+
+  /* ---- GEO DIAGRAM ---- */
+  .geo-diagram {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    margin-bottom: 32px;
+  }
+
+  /* ---- AD CARDS ---- */
+  .ad-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .ad-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ad-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+  }
+  .ad-card.top::before { background: var(--text-tertiary); }
+  .ad-card.mid::before { background: var(--linkedin-color); }
+  .ad-card.bot::before { background: var(--accent); }
+  .ad-card-stage {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .ad-card.top .ad-card-stage { color: var(--text-tertiary); }
+  .ad-card.mid .ad-card-stage { color: var(--linkedin-color); }
+  .ad-card.bot .ad-card-stage { color: var(--accent); }
+  .ad-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+  }
+  .ad-card-row {
+    margin-bottom: 8px;
+  }
+  .ad-card-row-label {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+  }
+  .ad-card-row-val {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ---- TIER BADGES ---- */
+  .tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .tier-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+  }
+  .tier-card .tier-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .tier-card .tier-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .tier-card .tier-sub {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .tier-card.t1 { border-color: var(--accent); }
+  .tier-card.t1 .tier-label { color: var(--accent); }
+  .tier-card.t2 .tier-label { color: var(--linkedin-color); }
+  .tier-card.t3 .tier-label { color: var(--text-tertiary); }
+
+  /* ---- PERSONAS ---- */
+  .persona-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .persona-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--text-primary);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 16px;
+  }
+
+  /* ---- MESSAGE COMPARISON ---- */
+  .msg-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .msg-panel {
+    border-radius: 8px;
+    padding: 24px;
+  }
+  .msg-panel.generic {
+    background: rgba(90,95,105,0.08);
+    border: 1px solid var(--border);
+    opacity: 0.6;
+  }
+  .msg-panel.personalised {
+    background: var(--accent-dim);
+    border: 1px solid rgba(62,201,167,0.3);
+  }
+  .msg-panel-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .msg-panel.generic .msg-panel-label { color: var(--red-muted); }
+  .msg-panel.personalised .msg-panel-label { color: var(--accent); }
+  .msg-panel blockquote {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  .msg-panel.personalised blockquote {
+    color: var(--text-primary);
+  }
+
+  /* ---- DATA INPUTS ---- */
+  .data-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .data-input-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .data-input-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .data-input-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .data-input-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ---- CONVERGENCE (Section 5) ---- */
+  .convergence-diagram {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 48px 0;
+    margin-bottom: 40px;
+  }
+
+  /* ---- SUMMARY TABLE ---- */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+  }
+  .summary-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .summary-table td {
+    font-size: 14px;
+    color: var(--text-secondary);
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+  }
+  .summary-table td:first-child {
+    font-weight: 600;
+    color: var(--text-primary);
+    width: 120px;
+  }
+
+  .closing-line {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--accent);
+    text-align: center;
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ---- TOGGLE ---- */
+  .toggle-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .toggle-label { font-size: 13px; color: var(--text-secondary); }
+  .toggle {
+    position: relative;
+    width: 48px;
+    height: 26px;
+    background: var(--border-light);
+    border-radius: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .toggle.on { background: var(--accent); }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s;
+  }
+  .toggle.on::after { transform: translateX(22px); }
+  .toggle-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+
+  /* ---- LINKEDIN CONTENT GRID ---- */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .content-type {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .content-type-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .content-type-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  /* ---- IMPRESSIONS ---- */
+  .impressions-card {
+    background: var(--accent-dim);
+    border: 1px solid rgba(62,201,167,0.2);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 32px;
+  }
+  .impressions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .impressions-label { font-size: 14px; color: var(--text-secondary); }
+  .impressions-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  /* ---- TOTAL ROW ---- */
+  .total-row {
+    border-top: 1px solid var(--border);
+    margin-top: 14px;
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .total-row span:last-child {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  /* ---- ANIMATIONS ---- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 860px) {
+    .sliders-grid.cols-3 { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    .ad-cards { grid-template-columns: 1fr; }
+    .msg-compare { grid-template-columns: 1fr; }
+    .data-inputs { grid-template-columns: 1fr; }
+    .tier-grid { grid-template-columns: 1fr; }
+    .metrics-row.cols-4 { grid-template-columns: 1fr 1fr; }
+    .seq-grid { grid-template-columns: repeat(5, 1fr); }
+    .conv-banner { grid-template-columns: 1fr; gap: 16px; }
+    .conv-arrow { display: none; }
+    .funnel-step { flex-direction: column; text-align: center; }
+    .funnel-step .funnel-num { margin-right: 0; margin-bottom: 4px; min-width: auto; text-align: center; }
+    .funnel-step .funnel-text { text-align: center; }
+    .content-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <header class="page-header">
+    <div class="eyebrow">TrialHub / Go-to-Market</div>
+    <h1>The GTM Motion</h1>
+    <p class="subtitle">Three pillars. One list. 1,500 buyers. Every activity across LinkedIn, Events, and Outreach converges on the same set of decision-makers. This is the operating system for how we reach them.</p>
+  </header>
+
+
+  <!-- ============================== -->
+  <!-- SECTION 1: MARKET CONTEXT      -->
+  <!-- ============================== -->
+  <div class="section" id="s1">
+    <div class="section-eyebrow">Section 01</div>
+    <h2 class="section-title">Market Context</h2>
+    <p class="section-desc">From the total addressable market down to the 1,500 individuals who can write a check in the next 90 days. Everything below this funnel is focused on that final number.</p>
+
+    <div class="funnel">
+      <div class="funnel-step" style="width:100%;border-radius:8px 8px 0 0;">
+        <span class="funnel-num">4,200+</span>
+        <div class="funnel-text">
+          <div class="funnel-label">TAM: Total Addressable Market</div>
+          <div class="funnel-detail">All pharma and biotech companies globally that run clinical trials</div>
+        </div>
+      </div>
+      <div class="funnel-connector"></div>
+      <div class="funnel-step" style="width:88%;">
+        <span class="funnel-num">1,100</span>
+        <div class="funnel-text">
+          <div class="funnel-label">TSM: Total Serviceable Market</div>
+          <div class="funnel-detail">Companies matching TrialHub's geography, trial complexity, and commercial maturity</div>
+        </div>
+      </div>
+      <div class="funnel-connector"></div>
+      <div class="funnel-step" style="width:72%;">
+        <span class="funnel-num">120</span>
+        <div class="funnel-text">
+          <div class="funnel-label">T1 Accounts</div>
+          <div class="funnel-detail">Highest priority. Full resource deployment.</div>
+        </div>
+      </div>
+      <div class="funnel-connector"></div>
+      <div class="funnel-step" style="width:58%;">
+        <span class="funnel-num">380</span>
+        <div class="funnel-text">
+          <div class="funnel-label">T2 Accounts</div>
+          <div class="funnel-detail">Active engagement but lower intensity</div>
+        </div>
+      </div>
+      <div class="funnel-connector"></div>
+      <div class="funnel-step" style="width:46%;">
+        <span class="funnel-num">600</span>
+        <div class="funnel-text">
+          <div class="funnel-label">T3 Accounts</div>
+          <div class="funnel-detail">Monitored. Minimal outreach.</div>
+        </div>
+      </div>
+      <div class="funnel-connector"></div>
+      <div class="funnel-step funnel-highlight" style="width:36%;border-radius:0 0 8px 8px;">
+        <span class="funnel-num">1,500</span>
+        <div class="funnel-text">
+          <div class="funnel-label">Buyers</div>
+          <div class="funnel-detail">Individuals across T1 and T2 with authority, budget, and urgency</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:8px;">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);">Everything downstream targets these 1,500 people.</span>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+
+  <!-- ============================== -->
+  <!-- SECTION 2: LINKEDIN            -->
+  <!-- ============================== -->
+  <div class="section" id="s2">
+    <div class="section-eyebrow">Section 02</div>
+    <h2 class="section-title">LinkedIn</h2>
+    <p class="section-desc">Build awareness and relevance with the 1,500 buyers by growing the team's network, publishing relevant content, and amplifying reach with Thought Leader Ads.</p>
+
+    <!-- Network Growth -->
+    <div class="subsection">
+      <div class="sub-label">Network Growth</div>
+      <p class="sub-desc">Every team member connects with at least 50 people from the Buyers list each week. More first-degree connections means more organic content surfaces in buyer feeds.</p>
+
+      <div class="sliders-grid cols-2" style="max-width:560px;">
+        <div class="ctrl">
+          <div class="ctrl-top">
+            <span class="ctrl-label">Team members</span>
+            <span class="ctrl-value" id="li-team-out">5</span>
+          </div>
+          <input type="range" id="li-team" min="1" max="10" step="1" value="5">
+          <div class="ctrl-range"><span>1</span><span>10</span></div>
+        </div>
+      </div>
+
+      <div class="metrics-row cols-3" style="max-width:640px;">
+        <div class="metric-tile">
+          <div class="metric-label">Connections / week</div>
+          <div class="metric-val" id="li-week">250</div>
+          <div class="metric-sub">team x 50</div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-label">Connections / month</div>
+          <div class="metric-val" id="li-month">1,000</div>
+          <div class="metric-sub">team x 50 x 4</div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-label">Reach after 12 weeks</div>
+          <div class="metric-val highlight" id="li-12wk">3,000</div>
+          <div class="metric-sub">cumulative connections</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Strategy -->
+    <div class="subsection">
+      <div class="sub-label">Content Strategy</div>
+      <p class="sub-desc">As the network grows, organic posts reach more buyers. The goal is not just reach: it is relevance. Each post addresses the specific problems these buyers face in trial planning.</p>
+
+      <div class="content-grid">
+        <div class="content-type">
+          <div class="content-type-label">Insight</div>
+          <div class="content-type-desc">Data-backed observation about a market trend or regulatory shift</div>
+        </div>
+        <div class="content-type">
+          <div class="content-type-label">Case Study Reference</div>
+          <div class="content-type-desc">Brief mention of a real outcome, anonymised if needed</div>
+        </div>
+        <div class="content-type">
+          <div class="content-type-label">Direct Question</div>
+          <div class="content-type-desc">A question posed to the market to spark conversation</div>
+        </div>
+      </div>
+
+      <div class="impressions-card">
+        <div class="impressions-row">
+          <span class="impressions-label">Posts per week (3 per active member)</span>
+          <span class="impressions-val" id="li-posts">15</span>
+        </div>
+        <div class="impressions-row" style="margin-top:12px;">
+          <span class="impressions-label">Estimated weekly impressions (connections x 0.15 per post)</span>
+          <span class="impressions-val" id="li-impressions">562</span>
+        </div>
+        <div style="margin-top:8px;font-size:12px;color:var(--text-tertiary);">
+          Impressions grow each week as the network expands. After 12 weeks, each post reaches a much larger buyer audience.
+        </div>
+      </div>
+    </div>
+
+    <!-- TLA -->
+    <div class="subsection">
+      <div class="sub-label">Thought Leader Ads (TLA)</div>
+      <p class="sub-desc">LinkedIn Thought Leader Ads let TrialHub sponsor posts from individual team members and target them precisely at the 1,500 buyers by job title, company, and seniority. This amplifies organic content beyond first-degree connections.</p>
+
+      <div class="toggle-wrap">
+        <span class="toggle-label">Organic only</span>
+        <div class="toggle" id="tla-toggle" onclick="toggleTLA()"></div>
+        <span class="toggle-label">Organic + TLA</span>
+        <span class="toggle-status" id="tla-status">Off</span>
+      </div>
+
+      <div class="metrics-row cols-3" style="max-width:640px;">
+        <div class="metric-tile">
+          <div class="metric-label">Organic reach</div>
+          <div class="metric-val" id="tla-organic">15%</div>
+          <div class="metric-sub">of first-degree connections</div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-label">TLA reach</div>
+          <div class="metric-val" id="tla-paid">0%</div>
+          <div class="metric-sub" id="tla-paid-sub">toggle to activate</div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-label">ABM precision</div>
+          <div class="metric-val" id="tla-abm" style="font-size:14px;">First-degree only</div>
+          <div class="metric-sub">targeting layer</div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);max-width:600px;line-height:1.6;">TLA targeting can be layered with the T1 and T2 account list for ABM precision. Instead of spraying content broadly, each sponsored post is shown only to the companies and roles that matter.</p>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+
+  <!-- ============================== -->
+  <!-- SECTION 3: EVENTS              -->
+  <!-- ============================== -->
+  <div class="section" id="s3">
+    <div class="section-eyebrow">Section 03</div>
+    <h2 class="section-title">Events</h2>
+    <p class="section-desc">At every industry conference, TrialHub activates with geo-targeted Meta ads and a three-tier creative strategy designed to filter for the right buyer.</p>
+
+    <!-- Geo-Targeting Diagram -->
+    <div class="subsection">
+      <div class="sub-label">Geo-Targeted Meta Ads</div>
+      <p class="sub-desc">The 1km radius around the venue is the active targeting zone, where attendees are on the convention floor and nearby. The 1km to 2km outer ring is excluded to avoid wasting budget on people who are not at the event.</p>
+
+      <div class="geo-diagram">
+        <svg width="400" height="400" viewBox="0 0 400 400">
+          <!-- Outer ring (excluded, red) -->
+          <circle cx="200" cy="200" r="180" fill="none" stroke="rgba(232,84,84,0.12)" stroke-width="60"/>
+          <circle cx="200" cy="200" r="180" fill="none" stroke="rgba(232,84,84,0.25)" stroke-width="1" stroke-dasharray="4 4"/>
+          <!-- Inner boundary -->
+          <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(232,84,84,0.25)" stroke-width="1" stroke-dasharray="4 4"/>
+          <!-- Inner zone (targeted, green) -->
+          <circle cx="200" cy="200" r="120" fill="rgba(62,201,167,0.08)" stroke="rgba(62,201,167,0.35)" stroke-width="1" stroke-dasharray="4 4"/>
+          <!-- Venue dot -->
+          <circle cx="200" cy="200" r="6" fill="var(--text-primary)"/>
+          <!-- Labels -->
+          <text x="200" y="190" text-anchor="middle" fill="#E8EAED" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500">VENUE</text>
+          <text x="200" y="245" text-anchor="middle" fill="var(--accent)" font-family="IBM Plex Mono, monospace" font-size="10">TARGETED (0 to 1 km)</text>
+          <text x="200" y="340" text-anchor="middle" fill="rgba(232,84,84,0.7)" font-family="IBM Plex Mono, monospace" font-size="10">EXCLUDED (1 to 2 km ring)</text>
+          <!-- Distance markers -->
+          <line x1="206" y1="200" x2="320" y2="200" stroke="var(--text-tertiary)" stroke-width="0.5" stroke-dasharray="2 3"/>
+          <text x="250" y="215" fill="var(--text-tertiary)" font-family="IBM Plex Mono, monospace" font-size="9">1 km</text>
+          <text x="310" y="215" fill="var(--text-tertiary)" font-family="IBM Plex Mono, monospace" font-size="9">2 km</text>
+          <!-- Hotels, restaurants icons (small dots in outer red zone) -->
+          <circle cx="145" cy="310" r="3" fill="rgba(232,84,84,0.5)"/><text x="153" y="313" fill="var(--text-tertiary)" font-family="IBM Plex Mono, monospace" font-size="9">Hotels</text>
+          <circle cx="270" cy="130" r="3" fill="rgba(232,84,84,0.5)"/><text x="278" y="133" fill="var(--text-tertiary)" font-family="IBM Plex Mono, monospace" font-size="9">Transit</text>
+          <circle cx="100" cy="160" r="3" fill="rgba(232,84,84,0.5)"/><text x="108" y="163" fill="var(--text-tertiary)" font-family="IBM Plex Mono, monospace" font-size="9">Restaurants</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Three Ad Creatives -->
+    <div class="subsection">
+      <div class="sub-label">Three Ad Creatives</div>
+      <p class="sub-desc">Each creative targets a different level of intent. Together they form a funnel: broad awareness at the top, tight qualification at the bottom.</p>
+
+      <div class="ad-cards">
+        <div class="ad-card top">
+          <div class="ad-card-stage">Top of Funnel: Awareness</div>
+          <div class="ad-card-title">Brand Presence</div>
+          <div class="ad-card-row">
+            <div class="ad-card-row-label">Qualifier</div>
+            <div class="ad-card-row-val">Anyone attending the conference</div>
+          </div>
+          <div class="ad-card-row">
+            <div class="ad-card-row-label">Angle</div>
+            <div class="ad-card-row-val">We are at booth [#]. Come find us.</div>
+          </div>
+        </div>
+        <div class="ad-card mid">
+          <div class="ad-card-stage">Mid Funnel: Qualification</div>
+          <div class="ad-card-title">Identify Sponsors</div>
+          <div class="ad-card-row">
+            <div class="ad-card-row-label">Qualifier</div>
+            <div class="ad-card-row-val">If you are a sponsor at [Conference Name]</div>
+          </div>
+          <div class="ad-card-row">
+            <div class="ad-card-row-label">Angle</div>
+            <div class="ad-card-row-val">Join us at booth [#]. We work with sponsors like you.</div>
+          </div>
+        </div>
+        <div class="ad-card bot">
+          <div class="ad-card-stage">Bottom Funnel: Conversion</div>
+          <div class="ad-card-title">High-Intent Visits</div>
+          <div class="ad-card-row">
+            <div class="ad-card-row-label">Qualifier</div>
+            <div class="ad-card-row-val">If you are a sponsor at [Conference Name] and want to understand how we validate drug reimbursement data and country-specific patient pathways</div>
+          </div>
+          <div class="ad-card-row">
+            <div class="ad-card-row-label">Angle</div>
+            <div class="ad-card-row-val">Come to booth [#]. Specific enough to filter for the right buyer, broad enough to start the conversation.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+
+  <!-- ============================== -->
+  <!-- SECTION 4: OUTREACH            -->
+  <!-- ============================== -->
+  <div class="section" id="s4">
+    <div class="section-eyebrow">Section 04</div>
+    <h2 class="section-title">Outreach</h2>
+    <p class="section-desc">The most complex pillar. Four components in sequence: prioritise companies, identify buyers, personalise messages, then execute a structured multi-channel sequence.</p>
+
+    <!-- Component 1: Company Prioritisation -->
+    <div class="subsection">
+      <div class="sub-label">Component 1: Company Prioritisation</div>
+      <p class="sub-desc">T1, T2, and T3 accounts have already been segmented. T1 gets everything. T2 gets active outreach. T3 is monitored but not actively pursued.</p>
+
+      <div class="tier-grid">
+        <div class="tier-card t1">
+          <div class="tier-label">T1</div>
+          <div class="tier-num">120</div>
+          <div class="tier-sub">Full resource deployment</div>
+        </div>
+        <div class="tier-card t2">
+          <div class="tier-label">T2</div>
+          <div class="tier-num">380</div>
+          <div class="tier-sub">Active outreach</div>
+        </div>
+        <div class="tier-card t3">
+          <div class="tier-label">T3</div>
+          <div class="tier-num">600</div>
+          <div class="tier-sub">Monitored only</div>
+        </div>
+      </div>
+
+      <div class="metric-tile" style="max-width:320px;">
+        <div class="metric-label">Active outreach target</div>
+        <div class="metric-val highlight">500</div>
+        <div class="metric-sub">T1 + part of T2</div>
+      </div>
+    </div>
+
+    <!-- Component 2: Buyer Identification -->
+    <div class="subsection">
+      <div class="sub-label">Component 2: Buyer Identification</div>
+      <p class="sub-desc">From the 500 active outreach companies, identify the specific people who matter. Not just anyone at the company. The person with authority, budget, and the operational pain that TrialHub solves.</p>
+
+      <div class="persona-tags">
+        <div class="persona-tag">Feasibility</div>
+        <div class="persona-tag">Trial Optimisation</div>
+        <div class="persona-tag">Patient Recruitment</div>
+        <div class="persona-tag">Clinical Operations</div>
+        <div class="persona-tag">Data and Analytics</div>
+      </div>
+    </div>
+
+    <!-- Component 3: Data and Personalisation -->
+    <div class="subsection">
+      <div class="sub-label">Component 3: Data and Personalisation</div>
+      <p class="sub-desc">Generic outreach gets ignored. Personalised outreach starts conversations. The difference is research depth and message specificity.</p>
+
+      <div class="msg-compare">
+        <div class="msg-panel generic">
+          <div class="msg-panel-label">Generic: What to avoid</div>
+          <blockquote>Hi FirstName, I'm Ivan with TrialHub. We work with sponsors like Novartis and Bayer to provide country-level drug reimbursement data to help them plan better. Are you open to having a conversation to see if there is a fit at Company?</blockquote>
+        </div>
+        <div class="msg-panel personalised">
+          <div class="msg-panel-label">Personalised: What to aim for</div>
+          <blockquote>Hi Nia,<br><br>The regulatory calendar at Vertex this year is intense: povetacicept BLA, CASGEVY, and ALYFTREK pediatric submissions, JOURNAVX in Canada, all in the first half alone.<br><br>When you are filing across that many geographies simultaneously, how is your team benchmarking country-level regulatory start-up timelines?<br><br>At TrialHub, we provide country-by-country reimbursement intelligence and regulatory start-up data across 70 plus markets, helping regulatory teams sequence global filings based on real-world access timelines, not assumptions. The variance between countries is often wider than internal estimates suggest.<br><br>Are you open to learning more in a short conversation?</blockquote>
+        </div>
+      </div>
+
+      <div class="sub-title" style="margin-bottom:16px;">Three data inputs that make personalisation at scale possible:</div>
+      <div class="data-inputs">
+        <div class="data-input-card">
+          <div class="data-input-num">01</div>
+          <div class="data-input-title">Company Prioritisation</div>
+          <div class="data-input-desc">T1, T2, T3 tiers are already defined. You know which companies deserve the most effort.</div>
+        </div>
+        <div class="data-input-card">
+          <div class="data-input-num">02</div>
+          <div class="data-input-title">Buyer Identification</div>
+          <div class="data-input-desc">The right person at each company. Not a generic title. A specific individual with budget authority.</div>
+        </div>
+        <div class="data-input-card">
+          <div class="data-input-num">03</div>
+          <div class="data-input-title">Study Data</div>
+          <div class="data-input-desc">TrialHub already has clinical trial data on these companies. This informs the specific, relevant message.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Component 4: Execution -->
+    <div class="subsection">
+      <div class="sub-label">Component 4: Execution</div>
+      <p class="sub-desc">The outreach execution model. Adjust the sliders to see how volume, attempts, and conversion rate change the math across a 60-day campaign.</p>
+
+      <!-- Calculator -->
+      <div class="sliders-grid cols-3">
+        <div class="ctrl">
+          <div class="ctrl-top">
+            <span class="ctrl-label">Number of buyers</span>
+            <span class="ctrl-value" id="or-buyers-out">1,500</span>
+          </div>
+          <input type="range" id="or-buyers" min="500" max="1500" step="50" value="1500">
+          <div class="ctrl-range"><span>500</span><span>1,500</span></div>
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-top">
+            <span class="ctrl-label">Attempts per buyer</span>
+            <span class="ctrl-value" id="or-attempts-out">8</span>
+          </div>
+          <input type="range" id="or-attempts" min="3" max="15" step="1" value="8">
+          <div class="ctrl-range"><span>3</span><span>15</span></div>
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-top">
+            <span class="ctrl-label">Conversion rate</span>
+            <span class="ctrl-value" id="or-conv-out">3.0%</span>
+          </div>
+          <input type="range" id="or-conv" min="0.5" max="10" step="0.5" value="3">
+          <div class="ctrl-range"><span>0.5%</span><span>10%</span></div>
+        </div>
+      </div>
+
+      <!-- Conversion Banner -->
+      <div class="conv-banner">
+        <div class="conv-item">
+          <div class="conv-item-label">Buyers contacted</div>
+          <div class="conv-item-val" id="or-b-buyers">1,500</div>
+          <div class="conv-item-sub">across 60 days</div>
+        </div>
+        <div class="conv-arrow">&rarr;</div>
+        <div class="conv-item">
+          <div class="conv-item-label">Expected meetings</div>
+          <div class="conv-item-val" id="or-b-meetings">45</div>
+          <div class="conv-item-sub" id="or-b-meetings-sub">at 3.0% conversion</div>
+        </div>
+        <div class="conv-arrow">&rarr;</div>
+        <div class="conv-item">
+          <div class="conv-item-label">Touches per meeting</div>
+          <div class="conv-item-val" id="or-b-tpm">267</div>
+          <div class="conv-item-sub">total touches per win</div>
+        </div>
+      </div>
+
+      <!-- Metric Tiles -->
+      <div class="metrics-row cols-4">
+        <div class="metric-tile">
+          <div class="metric-label">Total touches</div>
+          <div class="metric-val" id="or-m-touches">12,000</div>
+          <div class="metric-sub">buyers x attempts</div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-label">Cohorts</div>
+          <div class="metric-val" id="or-m-cohorts">6</div>
+          <div class="metric-sub" id="or-m-cohorts-sub">250 buyers each</div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-label">Campaign length</div>
+          <div class="metric-val" id="or-m-days">60 days</div>
+          <div class="metric-sub">6 cohorts x 10 days</div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-label">Expected meetings</div>
+          <div class="metric-val highlight" id="or-m-meetings">45</div>
+          <div class="metric-sub" id="or-m-meetings-sub">at 3.0% rate</div>
+        </div>
+      </div>
+
+      <!-- Channel Breakdown + Workload -->
+      <div class="sub-label" style="margin-top:32px;">Channel breakdown: total across campaign</div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title">Touches by channel</div>
+          <div class="ch-row">
+            <div class="ch-dot" style="background:var(--email-color);"></div>
+            <div class="ch-name">Email</div>
+            <div class="ch-bar-wrap"><div class="ch-bar" id="or-bar-email" style="width:100%;background:var(--email-color);"></div></div>
+            <div class="ch-pct">50%</div>
+            <div class="ch-val" id="or-val-email">6,000</div>
+          </div>
+          <div class="ch-row">
+            <div class="ch-dot" style="background:var(--phone-color);"></div>
+            <div class="ch-name">Phone</div>
+            <div class="ch-bar-wrap"><div class="ch-bar" id="or-bar-phone" style="width:40%;background:var(--phone-color);"></div></div>
+            <div class="ch-pct">20%</div>
+            <div class="ch-val" id="or-val-phone">2,400</div>
+          </div>
+          <div class="ch-row">
+            <div class="ch-dot" style="background:var(--linkedin-color);"></div>
+            <div class="ch-name">LinkedIn</div>
+            <div class="ch-bar-wrap"><div class="ch-bar" id="or-bar-li" style="width:30%;background:var(--linkedin-color);"></div></div>
+            <div class="ch-pct">15%</div>
+            <div class="ch-val" id="or-val-li">1,800</div>
+          </div>
+          <div class="ch-row">
+            <div class="ch-dot" style="background:var(--sms-color);"></div>
+            <div class="ch-name">SMS</div>
+            <div class="ch-bar-wrap"><div class="ch-bar" id="or-bar-sms" style="width:20%;background:var(--sms-color);"></div></div>
+            <div class="ch-pct">10%</div>
+            <div class="ch-val" id="or-val-sms">1,200</div>
+          </div>
+          <div class="ch-row">
+            <div class="ch-dot" style="background:var(--dm-color);"></div>
+            <div class="ch-name">Direct mail</div>
+            <div class="ch-bar-wrap"><div class="ch-bar" id="or-bar-dm" style="width:10%;background:var(--dm-color);"></div></div>
+            <div class="ch-pct">5%</div>
+            <div class="ch-val" id="or-val-dm">600</div>
+          </div>
+          <div class="total-row">
+            <span>Total</span>
+            <span id="or-val-total">12,000</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Daily workload (60-day window)</div>
+          <div class="wl-row">
+            <div class="wl-left"><div class="wl-dot" style="background:var(--email-color);"></div><div class="wl-label">Emails</div></div>
+            <div class="wl-val" id="or-wl-email">100 / day</div>
+          </div>
+          <div class="wl-row">
+            <div class="wl-left"><div class="wl-dot" style="background:var(--phone-color);"></div><div class="wl-label">Phone calls</div></div>
+            <div class="wl-val" id="or-wl-phone">40 / day</div>
+          </div>
+          <div class="wl-row">
+            <div class="wl-left"><div class="wl-dot" style="background:var(--linkedin-color);"></div><div class="wl-label">LinkedIn actions</div></div>
+            <div class="wl-val" id="or-wl-li">30 / day</div>
+          </div>
+          <div class="wl-row">
+            <div class="wl-left"><div class="wl-dot" style="background:var(--sms-color);"></div><div class="wl-label">SMS messages</div></div>
+            <div class="wl-val" id="or-wl-sms">20 / day</div>
+          </div>
+          <div class="wl-row">
+            <div class="wl-left"><div class="wl-dot" style="background:var(--dm-color);"></div><div class="wl-label">Direct mail pieces</div></div>
+            <div class="wl-val" id="or-wl-dm">10 / day</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10-Step Sequence -->
+      <div class="sub-label" style="margin-top:32px;">10-Step outreach sequence</div>
+      <div class="seq-grid">
+        <div class="seq-card">
+          <div class="seq-day-num">Day 1</div>
+          <div class="seq-icon" style="background:rgba(55,138,221,0.12);">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="#378ADD" stroke-width="1.3"/><path d="M2 6l6 4 6-4" stroke="#378ADD" stroke-width="1.3"/></svg>
+          </div>
+          <div class="seq-channel" style="color:var(--email-color);">Email</div>
+          <div class="seq-action">Personalised intro referencing study data</div>
+        </div>
+        <div class="seq-card">
+          <div class="seq-day-num">Day 3</div>
+          <div class="seq-icon" style="background:rgba(127,119,221,0.12);">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="3" width="10" height="10" rx="1.5" stroke="#7F77DD" stroke-width="1.3"/><path d="M6 7v3h1.5V8.5H9V7H6z" fill="#7F77DD"/><circle cx="7" cy="5.5" r="0.8" fill="#7F77DD"/></svg>
+          </div>
+          <div class="seq-channel" style="color:var(--linkedin-color);">LinkedIn</div>
+          <div class="seq-action">Connection request with short note</div>
+        </div>
+        <div class="seq-card">
+          <div class="seq-day-num">Day 5</div>
+          <div class="seq-icon" style="background:rgba(55,138,221,0.12);">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="#378ADD" stroke-width="1.3"/><path d="M2 6l6 4 6-4" stroke="#378ADD" stroke-width="1.3"/></svg>
+          </div>
+          <div class="seq-channel" style="color:var(--email-color);">Email</div>
+          <div class="seq-action">Follow-up referencing the first email</div>
+        </div>
+        <div class="seq-card">
+          <div class="seq-day-num">Day 8</div>
+          <div class="seq-icon" style="background:rgba(62,201,167,0.12);">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 10.5c0 .3-.1.6-.2.9l-.6 1.4a1 1 0 01-.9.7H9.5a7.5 7.5 0 01-7-7V3.7a1 1 0 01.7-.9L4.6 2.2c.3-.1.6-.1.9.1L7 4.1c.2.2.3.5.2.8L6.6 6.6a7.2 7.2 0 002.8 2.8l1.7-.6c.3-.1.6 0 .8.2l1.8 1.5c.2.2.3.4.3.7v-.7z" stroke="#3EC9A7" stroke-width="1.1"/></svg>
+          </div>
+          <div class="seq-channel" style="color:var(--phone-color);">Phone</div>
+          <div class="seq-action">First call attempt</div>
+        </div>
+        <div class="seq-card">
+          <div class="seq-day-num">Day 10</div>
+          <div class="seq-icon" style="background:rgba(127,119,221,0.12);">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="3" width="10" height="10" rx="1.5" stroke="#7F77DD" stroke-width="1.3"/><path d="M6 7v3h1.5V8.5H9V7H6z" fill="#7F77DD"/><circle cx="7" cy="5.5" r="0.8" fill="#7F77DD"/></svg>
+          </div>
+          <div class="seq-channel" style="color:var(--linkedin-color);">LinkedIn</div>
+          <div class="seq-action">Engage with their recent post</div>
+        </div>
+        <div class="seq-card">
+          <div class="seq-day-num">Day 14</div>
+          <div class="seq-icon" style="background:rgba(55,138,221,0.12);">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="#378ADD" stroke-width="1.3"/><path d="M2 6l6 4 6-4" stroke="#378ADD" stroke-width="1.3"/></svg>
+          </div>
+          <div class="seq-channel" style="color:var(--email-color);">Email</div>
+          <div class="seq-action">New angle, different value prop</div>
+        </div>
+        <div class="seq-card">
+          <div class="seq-day-num">Day 18</div>
+          <div class="seq-icon" style="background:rgba(62,201,167,0.12);">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 10.5c0 .3-.1.6-.2.9l-.6 1.4a1 1 0 01-.9.7H9.5a7.5 7.5 0 01-7-7V3.7a1 1 0 01.7-.9L4.6 2.2c.3-.1.6-.1.9.1L7 4.1c.2.2.3.5.2.8L6.6 6.6a7.2 7.2 0 002.8 2.8l1.7-.6c.3-.1.6 0 .8.2l1.8 1.5c.2.2.3.4.3.7v-.7z" stroke="#3EC9A7" stroke-width="1.1"/></svg>
+          </div>
+          <div class="seq-channel" style="color:var(--phone-color);">Phone</div>
+          <div class="seq-action">Second call attempt</div>
+        </div>
+        <div class="seq-card">
+          <div class="seq-day-num">Day 21</div>
+          <div class="seq-icon" style="background:rgba(216,90,48,0.12);">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="2" width="10" height="12" rx="2" stroke="#D85A30" stroke-width="1.2"/><line x1="6" y1="9" x2="10" y2="9" stroke="#D85A30" stroke-width="1"/><line x1="6" y1="11" x2="9" y2="11" stroke="#D85A30" stroke-width="1"/></svg>
+          </div>
+          <div class="seq-channel" style="color:var(--sms-color);">SMS</div>
+          <div class="seq-action">Short text referencing a data point</div>
+        </div>
+        <div class="seq-card">
+          <div class="seq-day-num">Day 28</div>
+          <div class="seq-icon" style="background:rgba(239,159,39,0.12);">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="2" width="10" height="13" rx="1" stroke="#EF9F27" stroke-width="1.2"/><line x1="5.5" y1="5" x2="10.5" y2="5" stroke="#EF9F27" stroke-width="1"/><line x1="5.5" y1="7.5" x2="10.5" y2="7.5" stroke="#EF9F27" stroke-width="1"/><line x1="5.5" y1="10" x2="8.5" y2="10" stroke="#EF9F27" stroke-width="1"/></svg>
+          </div>
+          <div class="seq-channel" style="color:var(--dm-color);">Direct Mail</div>
+          <div class="seq-action">Physical report or data brief to their office</div>
+        </div>
+        <div class="seq-card">
+          <div class="seq-day-num">Day 35</div>
+          <div class="seq-icon" style="background:rgba(55,138,221,0.12);">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="#378ADD" stroke-width="1.3"/><path d="M2 6l6 4 6-4" stroke="#378ADD" stroke-width="1.3"/></svg>
+          </div>
+          <div class="seq-channel" style="color:var(--email-color);">Email</div>
+          <div class="seq-action">Final follow-up before deprioritising</div>
+        </div>
+      </div>
+
+      <!-- Cohort Timeline -->
+      <div class="sub-label" style="margin-top:32px;">60-day cohort timeline</div>
+      <div style="margin-bottom:32px;">
+        <div class="timeline-header">
+          <div></div>
+          <div class="timeline-cols">
+            <div class="timeline-col-label">Days 1 to 10</div>
+            <div class="timeline-col-label">11 to 20</div>
+            <div class="timeline-col-label">21 to 30</div>
+            <div class="timeline-col-label">31 to 40</div>
+            <div class="timeline-col-label">41 to 50</div>
+            <div class="timeline-col-label">51 to 60</div>
+          </div>
+        </div>
+        <div id="or-timeline-rows"></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+
+  <!-- ============================== -->
+  <!-- SECTION 5: CONVERGENCE         -->
+  <!-- ============================== -->
+  <div class="section" id="s5">
+    <div class="section-eyebrow">Section 05</div>
+    <h2 class="section-title">Everything Converges on the Same 1,500 Buyers</h2>
+    <p class="section-desc">Three different channels. Three different mechanics. One shared target: the 1,500 individuals who can buy TrialHub in the next 90 days.</p>
+
+    <!-- Convergence Diagram -->
+    <div class="convergence-diagram">
+      <svg width="680" height="280" viewBox="0 0 680 280">
+        <!-- LinkedIn pillar -->
+        <rect x="20" y="40" width="140" height="60" rx="8" fill="rgba(127,119,221,0.12)" stroke="rgba(127,119,221,0.4)" stroke-width="1"/>
+        <text x="90" y="66" text-anchor="middle" fill="#7F77DD" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600">LINKEDIN</text>
+        <text x="90" y="82" text-anchor="middle" fill="#8A8F98" font-family="IBM Plex Mono, monospace" font-size="9">Network + Content + TLA</text>
+
+        <!-- Events pillar -->
+        <rect x="20" y="120" width="140" height="60" rx="8" fill="rgba(239,159,39,0.12)" stroke="rgba(239,159,39,0.4)" stroke-width="1"/>
+        <text x="90" y="146" text-anchor="middle" fill="#EF9F27" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600">EVENTS</text>
+        <text x="90" y="162" text-anchor="middle" fill="#8A8F98" font-family="IBM Plex Mono, monospace" font-size="9">Geo Ads + 3 Creatives</text>
+
+        <!-- Outreach pillar -->
+        <rect x="20" y="200" width="140" height="60" rx="8" fill="rgba(55,138,221,0.12)" stroke="rgba(55,138,221,0.4)" stroke-width="1"/>
+        <text x="90" y="226" text-anchor="middle" fill="#378ADD" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600">OUTREACH</text>
+        <text x="90" y="242" text-anchor="middle" fill="#8A8F98" font-family="IBM Plex Mono, monospace" font-size="9">10-Step Multi-Channel</text>
+
+        <!-- Arrows -->
+        <line x1="160" y1="70" x2="420" y2="148" stroke="rgba(127,119,221,0.4)" stroke-width="1.5"/>
+        <line x1="160" y1="150" x2="420" y2="150" stroke="rgba(239,159,39,0.4)" stroke-width="1.5"/>
+        <line x1="160" y1="230" x2="420" y2="152" stroke="rgba(55,138,221,0.4)" stroke-width="1.5"/>
+
+        <!-- Arrow heads -->
+        <polygon points="418,144 410,140 410,148" fill="rgba(127,119,221,0.5)"/>
+        <polygon points="418,146 410,142 410,150" fill="rgba(239,159,39,0.5)"/>
+        <polygon points="418,148 410,144 410,152" fill="rgba(55,138,221,0.5)"/>
+
+        <!-- Central node -->
+        <circle cx="500" cy="150" r="60" fill="var(--accent-dim)" stroke="var(--accent)" stroke-width="2"/>
+        <text x="500" y="140" text-anchor="middle" fill="var(--accent)" font-family="IBM Plex Mono, monospace" font-size="26" font-weight="700">1,500</text>
+        <text x="500" y="162" text-anchor="middle" fill="var(--accent)" font-family="IBM Plex Mono, monospace" font-size="11">BUYERS</text>
+
+        <!-- Right label -->
+        <text x="600" y="130" fill="var(--text-tertiary)" font-family="IBM Plex Mono, monospace" font-size="10">Authority</text>
+        <text x="600" y="148" fill="var(--text-tertiary)" font-family="IBM Plex Mono, monospace" font-size="10">Budget</text>
+        <text x="600" y="166" fill="var(--text-tertiary)" font-family="IBM Plex Mono, monospace" font-size="10">Urgency</text>
+      </svg>
+    </div>
+
+    <!-- Summary Table -->
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Pillar</th>
+          <th>Primary Mechanic</th>
+          <th>Buyer Touchpoint</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>LinkedIn</td>
+          <td>Network growth, organic content, and Thought Leader Ads</td>
+          <td>Buyers see content in feed, get connection requests, see sponsored posts</td>
+        </tr>
+        <tr>
+          <td>Events</td>
+          <td>Geo-targeted Meta ads in three creative tiers</td>
+          <td>Buyers see ads near venue and visit the booth</td>
+        </tr>
+        <tr>
+          <td>Outreach</td>
+          <td>Personalised 10-step multi-channel sequence</td>
+          <td>Buyers receive tailored messages across five channels</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="closing-line">All three pillars target the same 1,500 buyers. Nothing leaves the list.</div>
+  </div>
+
+</div>
+
+<script>
+  // Utility
+  function fmt(n) { return Math.round(n).toLocaleString(); }
+
+  // ---- LINKEDIN CALCULATOR ----
+  function updateLinkedIn() {
+    var team = +document.getElementById('li-team').value;
+    document.getElementById('li-team-out').textContent = team;
+    var perWeek = team * 50;
+    var perMonth = perWeek * 4;
+    var after12 = perWeek * 12;
+    document.getElementById('li-week').textContent = fmt(perWeek);
+    document.getElementById('li-month').textContent = fmt(perMonth);
+    document.getElementById('li-12wk').textContent = fmt(after12);
+
+    var posts = team * 3;
+    document.getElementById('li-posts').textContent = fmt(posts);
+
+    // Current connections estimate (cumulative average across weeks, rough mid-point)
+    var currentConnections = perWeek * 6; // rough mid-campaign estimate
+    var impressionsPerPost = Math.round(currentConnections * 0.15);
+    var weeklyImpressions = impressionsPerPost * posts;
+    document.getElementById('li-impressions').textContent = fmt(weeklyImpressions);
+  }
+  document.getElementById('li-team').addEventListener('input', updateLinkedIn);
+  updateLinkedIn();
+
+  // ---- TLA TOGGLE ----
+  var tlaOn = false;
+  function toggleTLA() {
+    tlaOn = !tlaOn;
+    var el = document.getElementById('tla-toggle');
+    if (tlaOn) {
+      el.classList.add('on');
+      document.getElementById('tla-status').textContent = 'On';
+      document.getElementById('tla-paid').textContent = '+85%';
+      document.getElementById('tla-paid-sub').textContent = 'of T1 + T2 buyer list';
+      document.getElementById('tla-abm').textContent = 'T1 + T2 list overlay';
+      document.getElementById('tla-abm').style.fontSize = '14px';
+    } else {
+      el.classList.remove('on');
+      document.getElementById('tla-status').textContent = 'Off';
+      document.getElementById('tla-paid').textContent = '0%';
+      document.getElementById('tla-paid-sub').textContent = 'toggle to activate';
+      document.getElementById('tla-abm').textContent = 'First-degree only';
+      document.getElementById('tla-abm').style.fontSize = '14px';
+    }
+  }
+
+  // ---- OUTREACH CALCULATOR ----
+  var COHORT_COLORS = [
+    { bg: 'rgba(55,138,221,0.2)', text: '#378ADD' },
+    { bg: 'rgba(127,119,221,0.2)', text: '#7F77DD' },
+    { bg: 'rgba(62,201,167,0.2)', text: '#3EC9A7' },
+    { bg: 'rgba(216,90,48,0.2)', text: '#D85A30' },
+    { bg: 'rgba(55,138,221,0.2)', text: '#378ADD' },
+    { bg: 'rgba(127,119,221,0.2)', text: '#7F77DD' }
+  ];
+  var COHORT_NAMES = ['Cohort A','Cohort B','Cohort C','Cohort D','Cohort E','Cohort F'];
+
+  function buildOutreachTimeline(cohortSize, convRate) {
+    var container = document.getElementById('or-timeline-rows');
+    container.innerHTML = '';
+    var cohortConv = Math.round(cohortSize * convRate / 100);
+
+    for (var i = 0; i < 6; i++) {
+      var row = document.createElement('div');
+      row.className = 'timeline-row';
+
+      var label = document.createElement('div');
+      label.className = 'timeline-row-label';
+      label.textContent = COHORT_NAMES[i];
+
+      var cells = document.createElement('div');
+      cells.className = 'timeline-cells';
+
+      for (var c = 0; c < 6; c++) {
+        var cell = document.createElement('div');
+        cell.className = 'timeline-cell';
+        if (c === i) {
+          cell.classList.add('active');
+          cell.style.background = COHORT_COLORS[i].bg;
+          cell.style.borderColor = 'transparent';
+          var top = document.createElement('div');
+          top.className = 'timeline-cell-top';
+          top.style.color = COHORT_COLORS[i].text;
+          top.textContent = fmt(cohortSize) + ' buyers';
+          var bot = document.createElement('div');
+          bot.className = 'timeline-cell-bot';
+          bot.style.color = COHORT_COLORS[i].text;
+          bot.textContent = '~' + cohortConv + ' meetings';
+          cell.appendChild(top);
+          cell.appendChild(bot);
+        }
+        cells.appendChild(cell);
+      }
+
+      row.appendChild(label);
+      row.appendChild(cells);
+      container.appendChild(row);
+    }
+  }
+
+  function updateOutreach() {
+    var buyers = +document.getElementById('or-buyers').value;
+    var att = +document.getElementById('or-attempts').value;
+    var conv = +document.getElementById('or-conv').value;
+
+    document.getElementById('or-buyers-out').textContent = fmt(buyers);
+    document.getElementById('or-attempts-out').textContent = att;
+    document.getElementById('or-conv-out').textContent = conv.toFixed(1) + '%';
+
+    var total = buyers * att;
+    var meetings = Math.round(buyers * conv / 100);
+    var tpm = meetings > 0 ? Math.round(total / meetings) : 0;
+    var cohortSize = Math.round(buyers / 6);
+
+    // Banner
+    document.getElementById('or-b-buyers').textContent = fmt(buyers);
+    document.getElementById('or-b-meetings').textContent = fmt(meetings);
+    document.getElementById('or-b-meetings-sub').textContent = 'at ' + conv.toFixed(1) + '% conversion';
+    document.getElementById('or-b-tpm').textContent = fmt(tpm);
+
+    // Metric tiles
+    document.getElementById('or-m-touches').textContent = fmt(total);
+    document.getElementById('or-m-cohorts-sub').textContent = fmt(cohortSize) + ' buyers each';
+    document.getElementById('or-m-meetings').textContent = fmt(meetings);
+    document.getElementById('or-m-meetings-sub').textContent = 'at ' + conv.toFixed(1) + '% rate';
+
+    // Channel breakdown
+    var emailT = Math.round(total * 0.50);
+    var phoneT = Math.round(total * 0.20);
+    var liT = Math.round(total * 0.15);
+    var smsT = Math.round(total * 0.10);
+    var dmT = Math.round(total * 0.05);
+
+    document.getElementById('or-val-email').textContent = fmt(emailT);
+    document.getElementById('or-val-phone').textContent = fmt(phoneT);
+    document.getElementById('or-val-li').textContent = fmt(liT);
+    document.getElementById('or-val-sms').textContent = fmt(smsT);
+    document.getElementById('or-val-dm').textContent = fmt(dmT);
+    document.getElementById('or-val-total').textContent = fmt(total);
+
+    // Daily workload (total / 60 days)
+    document.getElementById('or-wl-email').textContent = fmt(Math.round(emailT / 60)) + ' / day';
+    document.getElementById('or-wl-phone').textContent = fmt(Math.round(phoneT / 60)) + ' / day';
+    document.getElementById('or-wl-li').textContent = fmt(Math.round(liT / 60)) + ' / day';
+    document.getElementById('or-wl-sms').textContent = fmt(Math.round(smsT / 60)) + ' / day';
+    document.getElementById('or-wl-dm').textContent = fmt(Math.round(dmT / 60)) + ' / day';
+
+    // Timeline
+    buildOutreachTimeline(cohortSize, conv);
+  }
+
+  ['or-buyers','or-attempts','or-conv'].forEach(function(id) {
+    document.getElementById(id).addEventListener('input', updateOutreach);
+  });
+  updateOutreach();
+
+  // ---- SCROLL ANIMATIONS ----
+  function onScroll() {
+    var sections = document.querySelectorAll('.section');
+    for (var i = 0; i < sections.length; i++) {
+      var rect = sections[i].getBoundingClientRect();
+      if (rect.top < window.innerHeight - 80) {
+        sections[i].classList.add('visible');
+      }
+    }
+  }
+  window.addEventListener('scroll', onScroll);
+  window.addEventListener('load', onScroll);
+  // Trigger once on load after a short delay
+  setTimeout(onScroll, 100);
+</script>
+
+</body>
+</html>
